@@ -5,12 +5,12 @@ import com.ummbatin.service_management.services.ResidentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/residents")
 public class ResidentController {
+
     @Autowired
     private ResidentService residentService;
 
@@ -35,13 +35,13 @@ public class ResidentController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Resident updateResident(@PathVariable Integer id, @RequestBody Resident resident) {
+    public Resident updateResident(@PathVariable Long id, @RequestBody Resident resident) {
         return residentService.updateResident(id, resident);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public void deleteResident(@PathVariable Integer id) {
+    public void deleteResident(@PathVariable Long id) {
         residentService.deleteResident(id);
     }
 }

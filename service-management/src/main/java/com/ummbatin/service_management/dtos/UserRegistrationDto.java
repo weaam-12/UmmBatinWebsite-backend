@@ -13,10 +13,10 @@ public class UserRegistrationDto {
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
-    @NotBlank(message = "Role is required")
+    @Pattern(regexp = "USER|ADMIN", message = "Role must be USER or ADMIN")
     private String role;
 
-    // Constructors, getters, and setters
+
     public UserRegistrationDto() {}
 
     public UserRegistrationDto(String email, String password, String role) {

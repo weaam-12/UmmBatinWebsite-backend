@@ -16,7 +16,7 @@ public class ChildController {
 
     @GetMapping("/resident/{residentId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'RESIDENT')")
-    public List<Child> getChildrenByResident(@PathVariable Integer residentId) {  // Changed from Long to Integer
+    public List<Child> getChildrenByResident(@PathVariable Integer residentId) {
         return childService.getChildrenByResidentId(residentId);
     }
 

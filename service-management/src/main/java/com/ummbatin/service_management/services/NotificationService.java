@@ -20,6 +20,6 @@ public class NotificationService {
      * Fetch all notifications for the given user ID.
      */
     public List<Notification> getForUser(Long userId) {
-        return notificationRepository.findByUser_Id(userId);
+        return notificationRepository.findByUser_UserId(userId);
     }
 }

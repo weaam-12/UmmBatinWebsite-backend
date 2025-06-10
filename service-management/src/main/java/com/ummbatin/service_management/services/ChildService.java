@@ -12,8 +12,8 @@ public class ChildService {
     @Autowired
     private ChildRepository childRepository;
 
-    public List<Child> getChildrenByResidentId(Integer residentId) {  // Changed from Long to Integer
-        return childRepository.findByResident_ResidentId(residentId);  // Updated method call
+    public List<Child> getChildrenByResidentId(Integer residentId) {
+        return childRepository.findByResident_ResidentId(residentId);
     }
 
     public Child createChild(Child child) {

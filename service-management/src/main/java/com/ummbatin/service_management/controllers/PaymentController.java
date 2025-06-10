@@ -1,59 +1,33 @@
 package com.ummbatin.service_management.controllers;
 
 import com.stripe.exception.StripeException;
-import com.ummbatin.service_management.dtos.PaymentRequestDto;
-import com.ummbatin.service_management.models.Payment;
+import com.stripe.model.PaymentIntent;
+import com.ummbatin.service_management.dtos.PaymentRequest;
 import com.ummbatin.service_management.services.PaymentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/payments")
 public class PaymentController {
 
-    @Autowired
-    private PaymentService paymentService;
+    private final PaymentService paymentService;
 
-    @GetMapping
-    public List<Payment> getAllPayments() {
-        return paymentService.getAllPayments();
+    public PaymentController(PaymentService paymentService) {
+        this.paymentService = paymentService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Payment> getPaymentById(@PathVariable Integer id) {
-        return paymentService.getPaymentById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PostMapping
-    public Payment createPayment(@RequestBody Payment payment) {
-        return paymentService.savePayment(payment);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePayment(@PathVariable Integer id) {
-        paymentService.deletePayment(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/resident/{residentId}")
-    public List<Payment> getPaymentsByResidentId(@PathVariable Integer residentId) {
-        return paymentService.getPaymentsByResidentId(residentId);
-    }
-
-    // New endpoint for frontend to create stripe checkout session and get payment link
-    @PostMapping("/stripe/create-checkout-session")
-    public ResponseEntity<String> createCheckoutSession(@RequestBody PaymentRequestDto dto) {
+    @PostMapping("/")
+    public ResponseEntity<?> createPaymentIntent(@RequestBody PaymentRequest paymentRequest) {
         try {
-            String sessionUrl = paymentService.createStripeCheckoutSession(dto);
-            return ResponseEntity.ok(sessionUrl);
+            PaymentIntent paymentIntent = paymentService.createPaymentIntent(paymentRequest.getAmount());
+            return ResponseEntity.ok(paymentIntent);
         } catch (StripeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create Stripe session");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Payment failed: " + e.getMessage());
         }
     }
 }

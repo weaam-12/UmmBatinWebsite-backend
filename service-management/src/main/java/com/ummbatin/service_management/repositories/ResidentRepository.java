@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ResidentRepository extends JpaRepository<Resident, Integer> {
+public interface ResidentRepository extends JpaRepository<Resident, Long> {
     Optional<Resident> findByEmail(String email);
-    // Other resident-specific queries
+
 }

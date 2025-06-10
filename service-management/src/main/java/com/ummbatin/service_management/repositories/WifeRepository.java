@@ -8,10 +8,8 @@ import java.util.List;
 
 @Repository
 public interface WifeRepository extends JpaRepository<Wife, Long> {
-    // Correct method using the proper property path
+
     List<Wife> findByResident_ResidentId(Integer residentId);
 
-    // Alternative using @Query
-    // @Query("SELECT w FROM Wife w WHERE w.resident.residentId = :residentId")
-    // List<Wife> findByResidentId(@Param("residentId") Integer residentId);
+
 }

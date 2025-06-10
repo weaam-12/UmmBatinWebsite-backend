@@ -17,13 +17,13 @@ public class Resident {
     private Long residentId;
 
     @Column(name = "user_id", nullable = false)
-    private Integer userId;
+    private Long userId;
 
     @Column(name = "national_id", nullable = false, unique = true, length = 20)
     private String nationalId;
 
     @Column(name = "primary_residence_id")
-    private Integer primaryResidenceId;
+    private Long primaryResidenceId;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -51,11 +51,11 @@ public class Resident {
         this.residentId = residentId;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -67,11 +67,11 @@ public class Resident {
         this.nationalId = nationalId;
     }
 
-    public Integer getPrimaryResidenceId() {
+    public Long getPrimaryResidenceId() {
         return primaryResidenceId;
     }
 
-    public void setPrimaryResidenceId(Integer primaryResidenceId) {
+    public void setPrimaryResidenceId(Long primaryResidenceId) {
         this.primaryResidenceId = primaryResidenceId;
     }
 

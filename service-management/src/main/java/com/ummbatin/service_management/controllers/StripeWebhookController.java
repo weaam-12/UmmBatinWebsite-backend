@@ -48,7 +48,7 @@ public class StripeWebhookController {
                 String serviceId = metadata != null ? metadata.get("service_id") : null;
                 String paymentIntentId = session.getPaymentIntent();
 
-                // Call your service method to update payment record based on Stripe event
+                // Call service method to update payment record based on Stripe event
                 paymentService.markPaymentAsCompleted(residentId, serviceId, paymentIntentId);
             }
         }

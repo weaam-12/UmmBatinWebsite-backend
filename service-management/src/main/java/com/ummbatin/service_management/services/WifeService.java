@@ -13,7 +13,6 @@ public class WifeService {
     private WifeRepository wifeRepository;
 
     public List<Wife> getWivesByResidentId(Long residentId) {
-        // Convert Long to Integer to match Resident entity
         return wifeRepository.findByResident_ResidentId(residentId.intValue());
     }
 

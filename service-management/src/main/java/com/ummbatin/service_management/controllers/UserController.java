@@ -1,5 +1,6 @@
 package com.ummbatin.service_management.controllers;
 
+import com.ummbatin.service_management.dtos.UserDto;
 import com.ummbatin.service_management.models.User;
 import com.ummbatin.service_management.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,20 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/all")
-    @PreAuthorize("hasRole('ADMIN')")
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    @PreAuthorize("hasRole('ADMIN')") //  Only admins can see all users
+    public List<UserDto> getAllUsers() {
+        return userService.getAllUsers()
+                .stream()
+                .map(UserDto::new)
+                .toList();
     }
 
     @GetMapping("/profile")
-    @PreAuthorize("hasAnyRole('RESIDENT', 'ADMIN')")
-    public User getUserProfile(Authentication authentication) {
+    public UserDto getUserProfile(Authentication authentication) {
         String email = authentication.getName();
-        return userService.findByEmail(email)
+
+        User user = userService.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+        return new UserDto(user);
     }
 }

@@ -25,8 +25,7 @@ public class ResidentService {
         return residentRepository.findByEmail(email);
     }
 
-    // Changed from Long to Integer
-    public Resident updateResident(Integer id, Resident updatedResident) {
+    public Resident updateResident(Long id, Resident updatedResident) {
         Resident resident = residentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Resident not found"));
         resident.setName(updatedResident.getName());
@@ -36,7 +35,7 @@ public class ResidentService {
     }
 
     // Changed from Long to Integer
-    public void deleteResident(Integer id) {
+    public void deleteResident(Long id) {
         residentRepository.deleteById(id);
     }
 }

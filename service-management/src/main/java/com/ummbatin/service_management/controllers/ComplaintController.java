@@ -18,7 +18,7 @@ public class ComplaintController {
     @GetMapping("/resident/{residentId}")
     @PreAuthorize("hasAnyRole('RESIDENT', 'ADMIN')")
     public List<Complaint> getComplaintsByResident(@PathVariable Long residentId) {
-        return complaintService.getComplaintsByResidentId(residentId.intValue());
+        return complaintService.getComplaintsByResidentId(residentId);
     }
 
     // Resident can create a complaint

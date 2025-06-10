@@ -12,8 +12,8 @@ public class PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
 
-    public List<Property> getPropertiesByResidentId(Integer residentId) {  // Change to Integer
-        return propertyRepository.findByResident_ResidentId(residentId);  // Update method name
+    public List<Property> getPropertiesByResidentId(Integer residentId) {
+        return propertyRepository.findByResident_ResidentId(residentId);
     }
 
     public Property createProperty(Property property) {

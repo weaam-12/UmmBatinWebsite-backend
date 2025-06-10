@@ -1,7 +1,10 @@
 package com.ummbatin.service_management.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.ummbatin.service_management.models.Role;
+import com.ummbatin.service_management.models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -9,44 +12,60 @@ import java.time.LocalDateTime;
 public class UserDto {
 
     @Schema(description = "Unique identifier of the user", example = "1")
-    private Long id;
+    private Long user_id;
+
+    @Schema(description = "User's full name", example = "Admin User")
+    private String fullName;
 
     @Schema(description = "User's email address", example = "user@example.com")
     private String email;
 
-    @Schema(description = "User's role", example = "USER", allowableValues = {"USER", "ADMIN"})
-    private String role;
+    @Schema(description = "User's phone number", example = "0501234567")
+    private String phone;
 
-    @Schema(description = "Timestamp when user was created", example = "2023-05-15T10:30:00")
+
+    @Schema(description = "User's role", example = "ADMIN", allowableValues = {"USER", "ADMIN"})
+    private Role role;
+
+    @Schema(description = "User creation timestamp", example = "2025-06-01T10:57:25")
     private LocalDateTime createdAt;
 
-    @Schema(description = "Indicates if user is active", example = "true")
-    private Boolean isActive;
-
-    // Constructors
     public UserDto() {}
 
-    public UserDto(Long id, String email, String role) {
-        this.id = id;
-        this.email = email;
-        this.role = role;
+    public UserDto(User user) {
+        this.user_id = user.getUserId();
+        this.fullName = user.getFullName();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
+        this.role = user.getRole();
+        this.createdAt = user.getCreatedAt();
     }
 
-    public UserDto(Long id, String email, String role, LocalDateTime createdAt, Boolean isActive) {
-        this.id = id;
+    public UserDto(Long id, String fullName, String email, String phone,  Role role, LocalDateTime createdAt) {
+        this.user_id = id;
+        this.fullName = fullName;
         this.email = email;
+        this.phone = phone;
         this.role = role;
         this.createdAt = createdAt;
-        this.isActive = isActive;
     }
 
     // Getters and Setters
-    public Long getId() {
-        return id;
+
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -57,11 +76,20 @@ public class UserDto {
         this.email = email;
     }
 
-    public String getRole() {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -73,28 +101,27 @@ public class UserDto {
         this.createdAt = createdAt;
     }
 
-    public Boolean getIsActive() {
-        return isActive;
-    }
+    // Optional Builder pattern
 
-    public void setIsActive(Boolean active) {
-        isActive = active;
-    }
-
-    // Builder Pattern (Optional but recommended)
     public static Builder builder() {
         return new Builder();
     }
 
     public static class Builder {
-        private Long id;
+        private Long user_id;
+        private String fullName;
         private String email;
-        private String role;
+        private String phone;
+        private Role role;
         private LocalDateTime createdAt;
-        private Boolean isActive;
 
-        public Builder id(Long id) {
-            this.id = id;
+        public Builder id(Long user_id) {
+            this.user_id = user_id;
+            return this;
+        }
+
+        public Builder fullName(String fullName) {
+            this.fullName = fullName;
             return this;
         }
 
@@ -103,7 +130,13 @@ public class UserDto {
             return this;
         }
 
-        public Builder role(String role) {
+        public Builder phone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+
+        public Builder role(Role role) {
             this.role = role;
             return this;
         }
@@ -113,13 +146,8 @@ public class UserDto {
             return this;
         }
 
-        public Builder isActive(Boolean isActive) {
-            this.isActive = isActive;
-            return this;
-        }
-
         public UserDto build() {
-            return new UserDto(id, email, role, createdAt, isActive);
+            return new UserDto(user_id, fullName, email, phone, role, createdAt);
         }
     }
 }

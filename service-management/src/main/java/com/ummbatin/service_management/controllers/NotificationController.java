@@ -23,15 +23,13 @@ public class NotificationController {
         this.notificationService = notificationService;
         this.userService = userService;
     }
-
     @GetMapping("/me")
+
     public List<Notification> myNotifications(Authentication authentication) {
-        // assume the principal's name is the email
         String email = authentication.getName();
         User user = userService.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // now this calls NotificationService.getForUser(...)
-        return notificationService.getForUser(user.getId());
+        return notificationService.getForUser(user.getUserId());
     }
 }
