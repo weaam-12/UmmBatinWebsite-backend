@@ -10,6 +10,7 @@ public class UmmBatinServiceManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UmmBatinServiceManagementApplication.class, args);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
 
 	}
 
