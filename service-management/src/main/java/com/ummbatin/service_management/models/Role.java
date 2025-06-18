@@ -1,32 +1,33 @@
 package com.ummbatin.service_management.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 @Entity
-@Data
 @Table(name = "roles")
 public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
+    @Column(name = "role_id")
+    private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String roleName;
+    @Column(name = "role_name", nullable = false, unique = true)
+    private String name;
 
-    public Long getRoleId() {
-        return roleId;
+    // Getters and Setters
+    public Long getId() {
+        return id;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getName() {
+        return name;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

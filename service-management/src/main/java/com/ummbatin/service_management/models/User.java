@@ -1,22 +1,35 @@
 package com.ummbatin.service_management.models;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime; // Import for createdAt
 
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id") // Maps to the user_id column
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String role; // "ADMIN" or "RESIDENT"
+    @ManyToOne(fetch = FetchType.EAGER) // EAGER or LAZY depending on your needs
+    @JoinColumn(name = "role_id", nullable = false) // Foreign key column in users table
+    private Role role;
+
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+
+    @Column(name = "phone") // Nullable in DB
+    private String phone;
+
+    @Column(name = "created_at", updatable = false) // Often not updatable
+    private LocalDateTime createdAt;
 
     // Getters and Setters
     public Long getId() {
@@ -43,11 +56,35 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
