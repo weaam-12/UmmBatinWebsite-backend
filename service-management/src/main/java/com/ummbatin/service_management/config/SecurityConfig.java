@@ -62,7 +62,8 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
-                                "/error"
+                                "/error",
+                                "/api/complaints/**" // أضف هذا السطر
                         ).permitAll()
 
                                 .requestMatchers(HttpMethod.GET, "/api/residents/**").hasAnyRole("ADMIN", "RESIDENT")
