@@ -28,6 +28,38 @@ public class Complaint {
 
     @Column(name = "response", columnDefinition = "TEXT")
     private String response;
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "ticket_number")
+    private String ticketNumber;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getTicketNumber() {
+        return ticketNumber;
+    }
+
+    public void setTicketNumber(String ticketNumber) {
+        this.ticketNumber = ticketNumber;
+    }
 
     public Integer getComplaintId() {
         return complaintId;
