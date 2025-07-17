@@ -15,12 +15,12 @@ public class ComplaintController {
     private ComplaintService complaintService;
 
     // Resident can view their complaints
-    @GetMapping("/resident/{residentId}")
-    @PreAuthorize("hasAnyRole('RESIDENT', 'ADMIN')")
-    public List<Complaint> getComplaintsByResident(@PathVariable Long residentId) {
-        return complaintService.getComplaintsByResidentId(residentId);
-    }
 
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<Complaint> getAllComplaints() {
+        return complaintService.getAllComplaints();
+    }
     // Resident can create a complaint
     @PostMapping
     @PreAuthorize("hasAnyRole('RESIDENT', 'ADMIN')")
@@ -31,7 +31,7 @@ public class ComplaintController {
     // Only Admin can update complaint status
     @PutMapping("/{complaintId}/status")
     @PreAuthorize("hasRole('ADMIN')")
-    public Complaint updateComplaintStatus(@PathVariable Long complaintId, @RequestParam String status) {
+    public Complaint updateComplaintStatus(@PathVariable Integer complaintId, @RequestParam String status) {
         return complaintService.updateComplaintStatus(complaintId, status);
     }
 }

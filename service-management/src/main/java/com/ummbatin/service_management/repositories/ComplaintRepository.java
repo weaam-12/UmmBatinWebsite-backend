@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
-    List<Complaint> findByResident_ResidentId(Long residentId);
+public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
+    List<Complaint> findByUserId(Long userId);
+    List<Complaint> findAllByOrderByDateDesc();
 }

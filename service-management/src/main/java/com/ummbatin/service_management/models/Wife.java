@@ -2,8 +2,6 @@ package com.ummbatin.service_management.models;
 
 import jakarta.persistence.*;
 
-import jakarta.persistence.*;
-
 @Entity
 @Table(name = "wives")
 public class Wife {
@@ -15,9 +13,10 @@ public class Wife {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "resident_id", nullable = false)
-    private Resident resident;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -34,11 +33,11 @@ public class Wife {
         this.name = name;
     }
 
-    public Resident getResident() {
-        return resident;
+    public User getUser() {
+        return user;
     }
 
-    public void setResident(Resident resident) {
-        this.resident = resident;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

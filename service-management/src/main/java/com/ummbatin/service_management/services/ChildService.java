@@ -12,8 +12,12 @@ public class ChildService {
     @Autowired
     private ChildRepository childRepository;
 
-    public List<Child> getChildrenByResidentId(Integer residentId) {
-        return childRepository.findByResident_ResidentId(residentId);
+    public List<Child> getChildrenByUserId(Long userId) {
+        return childRepository.findByUserId(userId);
+    }
+
+    public List<Child> getChildrenByWifeId(Long wifeId) {
+        return childRepository.findByWifeId(wifeId);
     }
 
     public Child createChild(Child child) {

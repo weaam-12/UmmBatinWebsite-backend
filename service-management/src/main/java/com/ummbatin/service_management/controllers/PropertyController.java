@@ -14,10 +14,10 @@ public class PropertyController {
     @Autowired
     private PropertyService propertyService;
 
-    @GetMapping("/resident/{residentId}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'RESIDENT')")
-    public List<Property> getPropertiesByResident(@PathVariable Integer residentId) {
-        return propertyService.getPropertiesByResidentId(residentId);
+    @GetMapping("/user/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public List<Property> getPropertiesByUser(@PathVariable Long userId) {
+        return propertyService.getPropertiesByUserId(userId);
     }
 
     @PostMapping

@@ -14,10 +14,10 @@ public class WifeController {
     @Autowired
     private WifeService wifeService;
 
-    @GetMapping("/resident/{residentId}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'RESIDENT')")
-    public List<Wife> getWivesByResident(@PathVariable Long residentId) {
-        return wifeService.getWivesByResidentId(residentId);
+    @GetMapping("/user/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public List<Wife> getWivesByUser(@PathVariable Long userId) {
+        return wifeService.getWivesByUserId(userId);
     }
 
     @PostMapping

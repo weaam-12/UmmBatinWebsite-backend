@@ -44,12 +44,25 @@ public class StripeWebhookController {
 
             if (session != null) {
                 Map<String, String> metadata = session.getMetadata();
-                String residentId = metadata != null ? metadata.get("resident_id") : null;
+                String userId = metadata != null ? metadata.get("user_id") : null;
                 String serviceId = metadata != null ? metadata.get("service_id") : null;
                 String paymentIntentId = session.getPaymentIntent();
+                String receiptEmail = session.getCustomerDetails() != null ?
+                        session.getCustomerDetails().getEmail() : null;
 
-                // Call service method to update payment record based on Stripe event
-                paymentService.markPaymentAsCompleted(residentId, serviceId, paymentIntentId);
+                if (userId != null && serviceId != null && paymentIntentId != null) {
+                    try {
+                        paymentService.markPaymentAsCompleted(
+                                Long.parseLong(userId),
+                                serviceId,
+                                paymentIntentId,
+                                receiptEmail
+                        );
+                    } catch (NumberFormatException e) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                                .body("Invalid user_id format in metadata");
+                    }
+                }
             }
         }
 

@@ -16,31 +16,33 @@ public class ComplaintService {
     private ComplaintRepository complaintRepository;
 
     public List<Complaint> getAllComplaints() {
-        return complaintRepository.findAll();
-    }
-    public List<Complaint> getComplaintsByResidentId(Long residentId) {
-        return complaintRepository.findByResident_ResidentId(residentId);
+        return complaintRepository.findAllByOrderByDateDesc();
     }
 
-    public Optional<Complaint> getComplaintById(Long complaintId) {
+    public List<Complaint> getComplaintsByUserId(Long userId) {
+        return complaintRepository.findByUserId(userId);
+    }
+
+    public Optional<Complaint> getComplaintById(Integer complaintId) {
         return complaintRepository.findById(complaintId);
     }
 
     public Complaint createComplaint(Complaint complaint) {
         complaint.setDate(LocalDateTime.now());
-        complaint.setStatus("Pending");
+        if (complaint.getStatus() == null) {
+            complaint.setStatus("SUBMITTED");
+        }
         return complaintRepository.save(complaint);
     }
 
-    public Complaint updateComplaintStatus(Long complaintId, String status) {
+    public Complaint updateComplaintStatus(Integer complaintId, String status) {
         return complaintRepository.findById(complaintId).map(existing -> {
             existing.setStatus(status);
             return complaintRepository.save(existing);
         }).orElse(null);
     }
 
-
-    public void deleteComplaint(Long complaintId) {
+    public void deleteComplaint(Integer complaintId) {
         complaintRepository.deleteById(complaintId);
     }
 }

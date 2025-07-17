@@ -7,8 +7,6 @@ import java.util.List;
 
 @Repository
 public interface ChildRepository extends JpaRepository<Child, Integer> {
-
-    List<Child> findByResident_ResidentId(Integer residentId);
-
-
+    List<Child> findByUserId(Long userId);
+    List<Child> findByWifeId(Long wifeId);
 }

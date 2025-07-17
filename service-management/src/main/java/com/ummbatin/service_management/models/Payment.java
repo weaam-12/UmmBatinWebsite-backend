@@ -1,9 +1,9 @@
 package com.ummbatin.service_management.models;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "payments")
@@ -13,9 +13,18 @@ public class Payment {
     @Column(name = "payment_id")
     private Integer paymentId;
 
+    @Column(name = "date", nullable = false)
+    @JsonProperty("date") // يظهر في JSON كـ date
+    private LocalDate date;
+
+    @Column(name = "payment_date")
+    @JsonProperty("paymentDate") // يظهر في JSON كـ paymentDate
+    private LocalDateTime paymentDate;
+
     @ManyToOne
-    @JoinColumn(name = "resident_id", nullable = false)
-    private Resident resident;
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonProperty("user") // إرجاع المستخدم كـ user وليس user_id
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "property_id", nullable = false)
@@ -27,8 +36,6 @@ public class Payment {
     @Column(name = "amount", nullable = false)
     private Double amount;
 
-    @Column(name = "date", nullable = false)
-    private LocalDate date;
 
     @Column(name = "status", nullable = false)
     private String status;
@@ -36,12 +43,16 @@ public class Payment {
     @Column(name = "transaction_id", unique = true)
     private String transactionId;
 
-    @Column(name = "payment_date")
-    private LocalDateTime paymentDate;
-
     @Column(name = "payment_link")
     private String paymentLink;
 
+    @Column(name = "receipt_email")
+    private String receiptEmail;
+
+    @Column(name = "type")
+    private String type;
+
+    // Getters and Setters
     public Integer getPaymentId() {
         return paymentId;
     }
@@ -50,12 +61,12 @@ public class Payment {
         this.paymentId = paymentId;
     }
 
-    public Resident getResident() {
-        return resident;
+    public User getUser() {
+        return user;
     }
 
-    public void setResident(Resident resident) {
-        this.resident = resident;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Property getProperty() {
@@ -120,5 +131,21 @@ public class Payment {
 
     public void setPaymentLink(String paymentLink) {
         this.paymentLink = paymentLink;
+    }
+
+    public String getReceiptEmail() {
+        return receiptEmail;
+    }
+
+    public void setReceiptEmail(String receiptEmail) {
+        this.receiptEmail = receiptEmail;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

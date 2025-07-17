@@ -8,8 +8,5 @@ import java.util.List;
 
 @Repository
 public interface WifeRepository extends JpaRepository<Wife, Long> {
-
-    List<Wife> findByResident_ResidentId(Integer residentId);
-
-
+    List<Wife> findByUser_UserId(Long userId);
 }

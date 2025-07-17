@@ -1,8 +1,6 @@
 package com.ummbatin.service_management.models;
 
-import com.ummbatin.service_management.models.Resident;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,9 +11,8 @@ public class Complaint {
     @Column(name = "complaint_id")
     private Integer complaintId;
 
-    @ManyToOne
-    @JoinColumn(name = "resident_id", nullable = false)
-    private Resident resident;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
@@ -28,6 +25,7 @@ public class Complaint {
 
     @Column(name = "response", columnDefinition = "TEXT")
     private String response;
+
     @Column(name = "location")
     private String location;
 
@@ -37,30 +35,10 @@ public class Complaint {
     @Column(name = "ticket_number")
     private String ticketNumber;
 
-    public String getLocation() {
-        return location;
-    }
+    @Column(name = "image_url")
+    private String imageUrl;
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getTicketNumber() {
-        return ticketNumber;
-    }
-
-    public void setTicketNumber(String ticketNumber) {
-        this.ticketNumber = ticketNumber;
-    }
-
+    // Getters and Setters
     public Integer getComplaintId() {
         return complaintId;
     }
@@ -69,12 +47,12 @@ public class Complaint {
         this.complaintId = complaintId;
     }
 
-    public Resident getResident() {
-        return resident;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setResident(Resident resident) {
-        this.resident = resident;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getDescription() {
@@ -107,5 +85,37 @@ public class Complaint {
 
     public void setResponse(String response) {
         this.response = response;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getTicketNumber() {
+        return ticketNumber;
+    }
+
+    public void setTicketNumber(String ticketNumber) {
+        this.ticketNumber = ticketNumber;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

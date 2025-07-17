@@ -11,6 +11,10 @@ public class ApiResponse<T> {
         this.data = data;
     }
 
+    // New constructor with only success and message
+    public ApiResponse(boolean success, String message) {
+        this(success, message, null);
+    }
     public boolean isSuccess() {
         return success;
     }

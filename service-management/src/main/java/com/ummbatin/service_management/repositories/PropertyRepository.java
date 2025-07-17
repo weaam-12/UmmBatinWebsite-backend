@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Integer> {
-    List<Property> findByResident_ResidentId(Integer residentId);
-
+    List<Property> findByUser_UserId(Long userId);
 }

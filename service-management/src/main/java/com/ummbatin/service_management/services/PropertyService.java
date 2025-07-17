@@ -12,8 +12,8 @@ public class PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
 
-    public List<Property> getPropertiesByResidentId(Integer residentId) {
-        return propertyRepository.findByResident_ResidentId(residentId);
+    public List<Property> getPropertiesByUserId(Long userId) {
+        return propertyRepository.findByUser_UserId(userId);
     }
 
     public Property createProperty(Property property) {

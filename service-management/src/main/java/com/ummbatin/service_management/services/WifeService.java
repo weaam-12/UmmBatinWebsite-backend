@@ -12,8 +12,8 @@ public class WifeService {
     @Autowired
     private WifeRepository wifeRepository;
 
-    public List<Wife> getWivesByResidentId(Long residentId) {
-        return wifeRepository.findByResident_ResidentId(residentId.intValue());
+    public List<Wife> getWivesByUserId(Long userId) {
+        return wifeRepository.findByUser_UserId(userId);
     }
 
     public Wife createWife(Wife wife) {
